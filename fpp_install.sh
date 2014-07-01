@@ -1,8 +1,10 @@
 #!/bin/bash
 
+/bin/pwd >> /tmp/you
 pushd $(dirname $(which $0))
 
-wget abyz.co.uk/rpi/pigpio/pigpio.zip
+/usr/bin/wget abyz.co.uk/rpi/pigpio/pigpio.zip
+/bin/pwd >> /tmp/me
 unzip pigpio.zip 
 cd PIGPIO/
 make
@@ -17,3 +19,4 @@ service pigpiod start
 
 
 popd
+
