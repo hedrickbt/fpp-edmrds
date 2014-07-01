@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 
 #DEBUG=1
@@ -101,3 +102,6 @@ case $operation in
 		die "You must specify a callback type!"
 		;;
 esac
+=======
+#
+>>>>>>> 9c66f39ad2a955d7da02c1ae65cd443332880e3a
