@@ -62,7 +62,7 @@ done
 
 handle_media()
 {
-	vast_args="$(dirname $0)/bin/rds -t --rds"
+	vast_args="$(dirname $0)/rds-song.py -s"
 
 	eval $(echo $1 | sed 's/^{//;s/}$//;s/,\s*/\n/g;s/"\([^"]*\)"\:\s*"\([^"]*\)"/\1="\2"/g')
 
