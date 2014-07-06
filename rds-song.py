@@ -11,9 +11,10 @@ if len(sys.argv) == 1:
    sys.exit ("The total numbers of arguments passed is 1.\nRun the app with the -h command for help.")
 
 parser = argparse.ArgumentParser(description='RDS Setting Application')
-parser.add_argument('-c','--change', help='Input station name (8 characters max)',required=False)
+parser.add_argument('-c','--change', help='Input station name (8 characters max)', required=False)
 parser.add_argument('-s','--song',help='Song name', required=False)
-parser.add_argument('-w','--write',help='Write to memory', required=False, action='store_true')
+parser.add_argument('-l','--liststation', help='Print out the station id', required=False, action="store_true")
+parser.add_argument('-w','--write',help='Write to memory', required=False, action="store_true")
 args = parser.parse_args()
 
 pi = pigpio.pi()
@@ -59,20 +60,35 @@ if args.song:
    s.E()
    print "Radiotext changed to: %s" % radiotext
 
-if args.write:
-   print "EEPROM read"
-
-   #print out the first three characters of the radio text info
+if args.liststation:
+   #print out the radio station id
    s.S()
    s.TX(214)
    s.TX(02)  #0x77 is for Dynamic PS 0x20 is RT
    s.S()
    s.TX(215)
-   print(s.RX(0))
-   print 'Got new device: %s' % chr(79)
+   number1 = s.RX(1) #1 = ack, 0-nack
+   number2 = s.RX(1)
+   number3 = s.RX(1)
+   number4 = s.RX(1)
+   number5 = s.RX(1)
+   number6 = s.RX(1)
+   number7 = s.RX(1)
+   number8 = s.RX(0)
+   print '%s%s%s%s%s%s%s%s' %(chr(number1) , chr(number2) , chr(number3), chr(number4) , chr(number5) , chr(number6), chr(number7) , chr(number8))
    s.E()
    ###
    ###
+
+if args.write:
+   #Store settings to eeprom
+   print ("Saving...")
+   s.S()
+   s.TX(214)
+   s.TX(0x71)
+   s.TX(0x45)
+   s.E()
+   print ("Settings saved to EEPROM")
 
 # print ("Station Name: %s" % args.change )
 # print ("Song: %s" % args.song )
