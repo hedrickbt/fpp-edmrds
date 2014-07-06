@@ -47,7 +47,11 @@ Station ID:
 <?php 
 system('python /opt/fpp/plugins/edmrds/rds-song.py -l', $stationid);
 ?>
-
+<br>
+Now Playing:
+<?php
+system('python /opt/fpp/plugins/edmrds/rds-song.py -n', $nowplaying);
+?>
 
 <p>To report a bug, please file it against the fpp-vastfmt plugin project here:
 <a href="https://github.com/drlucas/fpp-edmrds/issues/new" target="_new">fpp-edmrds GitHub Issues</a></p>
