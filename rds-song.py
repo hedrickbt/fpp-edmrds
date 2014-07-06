@@ -14,6 +14,7 @@ parser = argparse.ArgumentParser(description='RDS Setting Application')
 parser.add_argument('-c','--change', help='Input station name (8 characters max)', required=False)
 parser.add_argument('-s','--song',help='Song name', required=False)
 parser.add_argument('-l','--liststation', help='Print out the station id', required=False, action="store_true")
+parser.add_argument('-n','--nowplaying', help='Print out current radiotext', required=False, action="store_true")
 parser.add_argument('-w','--write',help='Write to memory', required=False, action="store_true")
 args = parser.parse_args()
 
@@ -77,8 +78,23 @@ if args.liststation:
    number8 = s.RX(0)
    print '%s%s%s%s%s%s%s%s' %(chr(number1) , chr(number2) , chr(number3), chr(number4) , chr(number5) , chr(number6), chr(number7) , chr(number8))
    s.E()
-   ###
-   ###
+
+if args.nowplaying:
+   #print out the current radio text information
+   radiotext = ""
+   s.S()
+   s.TX(214)
+   s.TX(0x20)
+   s.S()
+   s.TX(215)
+   for x in range(0, 63):
+      #print " %s" % chr(s.RX(1))
+      radiotext = radiotext + chr(s.RX(1))
+   radiotext = radiotext + chr(s.RX(0))
+   s.E()
+
+   print "%s" % radiotext
+
 
 if args.write:
    #Store settings to eeprom
