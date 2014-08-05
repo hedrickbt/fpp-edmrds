@@ -1,16 +1,14 @@
-<?php
-
-exec("if cat /proc/asound/cards | sed -n '/\s[0-9]*\s\[/p' | grep -iq vast; then echo 1; else echo 0; fi", $output, $return_val);
-if ( $return_val )
-{
-	error_log("Failed our command to check for the FM transmitter");
-}
-$fm_audio = ($output[0] == 1);
-unset($output);
-
-?>
+<html>
+<head>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#nowplaying").load('/plugin.php?nopage=1&plugin=edmrds&page=nowplaying.php');
+});
 
 
+
+</script>
+</head>
 
 <div id="rds" class="settings">
 <fieldset>
@@ -43,15 +41,8 @@ Planned Features:
 <li>Set the EDM station name
 </ul>
 
-Station ID: 
-<?php 
-system('python /opt/fpp/plugins/edmrds/rds-song.py -l', $stationid);
-?>
-<br>
-Now Playing:
-<?php
-system('python /opt/fpp/plugins/edmrds/rds-song.py -n', $nowplaying);
-?>
+<span id="nowplaying">Now Playing:<br>
+Station ID:</span>
 
 <p>To report a bug, please file it against the fpp-vastfmt plugin project here:
 <a href="https://github.com/drlucas/fpp-edmrds/issues/new" target="_new">fpp-edmrds GitHub Issues</a></p>
