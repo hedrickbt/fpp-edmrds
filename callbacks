@@ -30,6 +30,9 @@ while true; do
 				media)
 					operation=$1
 					;;
+				both)   
+					operation=$1
+					;;
 				*)
 					die "Error: Unsupported type $1!"
 					;;
@@ -66,16 +69,14 @@ handle_media()
 
 	eval $(echo $1 | sed 's/^{//;s/}$//;s/,\s*/\n/g;s/"\([^"]*\)"\:\s*"\([^"]*\)"/\1="\2"/g')
 
-	artist="$(echo $Media | sed -n '/-/p' | cut -d- -f1 | sed 's/^\s*//g;s/\s*$//g')"
-	title="$(echo $Media | sed -n '/-/p' | cut -d- -f2 | sed 's/^\s*//g;s/\s*\.ogg\s*$//g;')"
-
-	if [ -n "$artist" ] && [ -n "$title" ]; then
-		vast_args="$vast_args --artist \"$artist\" --title \"$title\""
-	elif [ -n "$Media" ]; then
-		vast_args="$vast_args --rds-text \"${Media%.ogg}\""
+	if [ -z "$artist" ]; then
+		artist="$(echo $Media | sed -n '/-/p' | cut -d- -f1 | sed 's/^\s*//g;s/\s*$//g')"
+	fi
+	if [ -z "$title" ]; then
+		title="$(echo $Media | sed -n '/-/p' | cut -d- -f2 | sed 's/^\s*//g;s/\s*\.ogg\s*$//g;')"
 	fi
 
-	echo $vast_args
+        echo "$vast_args \"$title\""
 }
 
 case $operation in
@@ -97,6 +98,25 @@ case $operation in
 		sleep 2
 		amixer set PCM -- $volume unmute
 		;;
+	both)
+                value=$(handle_media "$DATA")
+                if [ -n "$DEBUG" ]; then
+                        echo $value
+
+                        # Log to a file as well
+                        date >> callback_debug.log
+                        echo $value >> callback_debug.log
+                        echo >> callback_debug.log
+                fi
+
+                volume=$(amixer | grep 'Front Left:' | awk '{print $4}')
+                amixer set PCM -- 0 mute
+                sleep 1
+                eval $value &
+                sleep 2
+                amixer set PCM -- $volume unmute
+                ;;
+
 	*)
 		die "You must specify a callback type!"
 		;;
