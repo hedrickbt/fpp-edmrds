@@ -1,8 +1,15 @@
 <?php
-if(isset($_POST['submit'])) 
-{ 
-    $name = $_POST['station'];
+if(isset($_POST['submit']))
+{
+    $name = htmlspecialchars($_POST['station']);
+    if (strlen($name) >8)
+        { 
+                echo "Station ID must be less than 8 characters"; 
+        }
+        else
+        {
     echo exec("python /opt/fpp/plugins/edmrds/rds-song.py -c $name 2>&1 ");
+        }
 }
 ?>
 
