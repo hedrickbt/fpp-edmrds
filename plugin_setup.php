@@ -1,3 +1,11 @@
+<?php
+if(isset($_POST['submit'])) 
+{ 
+    $name = $_POST['station'];
+    echo exec("python /opt/fpp/plugins/edmrds/rds-song.py -c $name 2>&1 ");
+}
+?>
+
 <html>
 <head>
 <script type="text/javascript">
@@ -5,15 +13,12 @@ $(document).ready(function(){
 $("#nowplaying").load('/plugin.php?nopage=1&plugin=edmrds&page=nowplaying.php');
 });
 
-
-
 </script>
 </head>
 
 <div id="rds" class="settings">
 <fieldset>
 <legend>EDM-LCD-RDS-EP Support Instructions</legend>
-
 
 <p>Before you use the RDS capabilities of your EDM FM transmitter you must be comfortable 
 with soldering and connect the SCL and SDA pins from the RDS chip located within the EDM FM transmitter 
@@ -28,18 +33,19 @@ Information on the RDS chip inside the EDM transmitter can be found here: http:/
 
 <p>When you create your MP3 and OGG files, make sure you tag them with Artist and Title fields. You can upload the MP3s and OGG files through the
 File Manager in the Content Setup menu. Once the tags are set, this plug in will automatically update the RDS text when the file is played!</p>
-
 <p>Known Issues:
 <ul>
 <li>NONE</li>
 </ul>
 
-
-Planned Features:
-<ul>
-<li>Connection between the EDM and the Pi using the supplied USB to the serial cable
-<li>Set the EDM station name
-</ul>
+<form method="post" action="http://fpp.local/plugin.php?plugin=edmrds&page=plugin_setup.php">
+Manually Set Station ID<br>
+<p><label for="station_ID">Station ID:</label>
+<input type="text" name="station" id="station_ID"></input>
+(Expected format: up to 8 characters)
+<input id="submit_button" name="submit" type="submit" class="buttons" value="Set Station ID">
+</p>
+</form>
 
 <span id="nowplaying">Now Playing:<br>
 Station ID:</span>
@@ -50,3 +56,4 @@ Station ID:</span>
 </fieldset>
 </div>
 <br />
+</html>
