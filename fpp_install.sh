@@ -18,7 +18,7 @@ complete -W "$(ls /etc/init.d/)" service
 
 
 service pigpiod start
-
+sudo python /opt/fpp/plugins/edmrds/rds-song.py -i
 
 
 popd
