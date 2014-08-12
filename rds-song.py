@@ -15,6 +15,7 @@ parser.add_argument('-c','--change', help='Input station name (8 characters max)
 parser.add_argument('-s','--song',help='Song name', required=False)
 parser.add_argument('-l','--liststation', help='Print out the station id', required=False, action="store_true")
 parser.add_argument('-n','--nowplaying', help='Print out current radiotext', required=False, action="store_true")
+parser.add_argument('-i','--install', help='Run the first time you install to turn off Dynamic PS', required=False, action="store_true")
 parser.add_argument('-w','--write',help='Write to memory', required=False, action="store_true")
 args = parser.parse_args()
 
@@ -29,7 +30,7 @@ if args.change:
    if len(args.change) >=9:
       sys.exit ("The station name has to be 8 characters or less")
    stationname = args.change
-   stationname = stationname.rjust(8,' ')
+   stationname = stationname.ljust(8,' ')
    s.S()
    s.TX(214)
    s.TX(02)
@@ -39,19 +40,28 @@ if args.change:
    s.E()
    print "Station name changed to: %s" % stationname
 
-# turn off dynamic PS because it's bad (although EDM has it on by default - http://www.rds.org.uk/2010/Usage-of-PS.htm)
-#s.S()
-#s.TX(214)
-#s.TX(0x76)
-#s.TX(0)
-#s.E()
+if args.install:
+   #Store settings to eeprom
+   print ("Setting dynamic PS to off and saving eeprom...")
+   # turn off dynamic PS because it's bad (although EDM has it on by default - http://www.rds.org.uk/2010/Usage-of-PS.htm)
+   s.S()
+   s.TX(214)
+   s.TX(0x76)
+   s.TX(0)
+   s.E()
+   s.S()
+   s.TX(214)
+   s.TX(0x71)
+   s.TX(0x45)
+   s.E()
+   print ("Settings saved to EEPROM")
 
 if args.song:
    #we have to change the song title playing
    if len(args.song) >=64:
       sys.exit ("The song has to be 64 characters or less")
    radiotext = args.song
-   radiotext = radiotext.rjust(64,' ')
+   radiotext = radiotext.ljust(64,' ')
    s.S()
    s.TX(214)
    s.TX(0x20)
