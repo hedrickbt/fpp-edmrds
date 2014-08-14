@@ -24,7 +24,7 @@ $plugins = Array(
 		'description' => 'Basic RDS support for the EDM',
 		'homeUrl'     => 'https://github.com/drlucas/fpp-edmrds',
 		'sourceUrl'   => 'https://github.com/drlucas/fpp-edmrds.git',
-		'bugUrl'      => 'https://github.com/cpinkham/fpp-matrixtools/issues',
+		'bugUrl'      => 'https://github.com/drlucas/fpp-edmrds/issues',
 	),
 );
 
