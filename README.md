@@ -3,7 +3,7 @@ edmrds
 
 Basic RDS support for the EDM transmitter.
 
-To install - modify the /opt/fpp/www/pluginData.inc.php file
+To install - modify the /opt/fpp/www/pluginData.inc.php file to add the edmrds section as per below. 
 
 <?php
 
@@ -29,3 +29,8 @@ $plugins = Array(
 );
 
 ?>
+
+NOTE: There may be other plugins in the file, the above is just an example. 
+
+Once the file is modified, then go to the Plugins option under the Content Setup menu and install the EDM audio plugin. 
+The setup will take about 5 minutes to complete, so don't be surprised to see the circle spinning away while it's installing and compiling the pigpio files. 
