@@ -8,7 +8,7 @@ sudo chmod +x /opt/fpp/plugins/edmrds/callbacks
 sudo chmod +x /opt/fpp/plugins/edmrds/rds-song.py 
 
 /usr/bin/wget http://abyz.co.uk/rpi/pigpio/VERSIONS/pigpio-V22.zip
-sudo move pigpio-V22.zip pigpio.zip
+sudo mv pigpio-V22.zip pigpio.zip
 unzip pigpio.zip 
 cd PIGPIO/
 sudo sed  '2619s/data/str(data)/' -i pigpio.py
