@@ -27,7 +27,7 @@ $plugins = Array(
 		'homeUrl'     => 'https://github.com/drlucas/fpp-edmrds',
 		'sourceUrl'   => 'https://github.com/drlucas/fpp-edmrds.git',
 		'bugUrl'      => 'https://github.com/drlucas/fpp-edmrds/issues',
-		'sha'         => '87713eebb2bf180f2eac6af407c6df2586d2f3ec',
+		'sha'         => 'ed33449c83a5d24b93bfed2f963527e7f2b2aff5',
 	),
 );
 
