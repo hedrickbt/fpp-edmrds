@@ -4,8 +4,8 @@ pushd $(dirname $(which $0))
 
 cp pigpiod /etc/init.d
 sudo chmod 755 /etc/init.d/pigpiod 
-sudo chmod +x /home/pi/media/plugins/edmrds/callbacks
-sudo chmod +x /home/pi/media/plugins/edmrds/rds-song.py 
+sudo chmod +x /home/fpp/media/plugins/edmrds/callbacks
+sudo chmod +x /home/fpp/media/plugins/edmrds/rds-song.py 
 
 /usr/bin/wget http://abyz.co.uk/rpi/pigpio/VERSIONS/pigpio-V22.zip
 sudo mv pigpio-V22.zip pigpio.zip
@@ -21,7 +21,7 @@ complete -W "$(ls /etc/init.d/)" service
 
 
 service pigpiod start
-sudo python /home/pi/media/plugins/edmrds/rds-song.py -i
+sudo python /home/fpp/media/plugins/edmrds/rds-song.py -i
 
 
 popd
