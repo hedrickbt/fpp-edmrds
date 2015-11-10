@@ -45,7 +45,7 @@ File Manager in the Content Setup menu. Once the tags are set, this plug in will
 <li>NONE</li>
 </ul>
 
-<form method="post" action="http://fpp.local/plugin.php?plugin=edmrds&page=plugin_setup.php">
+<form method="post" action="/plugin.php?plugin=edmrds&page=plugin_setup.php">
 Manually Set Station ID<br>
 <p><label for="station_ID">Station ID:</label>
 <input type="text" name="station" id="station_ID"></input>
