@@ -1,5 +1,3 @@
-bb_I2C.py  fpp_install.sh  pigpio.zip       rds-song.py
-fpp@FPP1 ~/media/plugins/edmrds $ cat callbacks.py 
 #!/usr/bin/env python
 
 import time
